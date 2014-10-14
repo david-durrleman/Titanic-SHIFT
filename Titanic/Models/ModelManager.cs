@@ -60,12 +60,18 @@ namespace Titanic.Models
             return new string[] { String.Format("Model Type: {0}", type) }.Concat(CreateModel(type).ModelInfo);
         }
 
+        // This records a ModelInstance in the global ModelInstances variable and returns its id.
+        public static int AddModel(ModelInstance instance)
+        {
+            ModelInstances.Add(instance);
+            return ModelInstances.Count() - 1;
+        }
+
         // This creates a ModelInstance container, which will contain a model of the given type and configure it
-        // with the given parameters. It then records it in the global ModelInstances variable.
+        // with the given parameters. It then records it in the global ModelInstances variable and returns its id.
         public static int AddModel(ModelType type, string[] paramValues)
         {
-            ModelInstances.Add(new ModelInstance(type, paramValues));
-            return ModelInstances.Count() - 1;
+            return AddModel(new ModelInstance(type, paramValues));
         }
 
         // This helper checks whether a given modelId has been assigned and still exists, and throws otherwise.

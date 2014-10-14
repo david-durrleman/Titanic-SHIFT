@@ -43,6 +43,8 @@ namespace Titanic.Commands
         static CommandManager()
         {
             AddCommand("create", new CreateCommand());
+            AddCommand("delete", new DeleteCommand());
+            AddCommand("duplicate", new DuplicateCommand());
             AddCommand("train", new TrainCommand());
             AddCommand("display", new DisplayCommand());
             AddCommand("info", new InfoCommand());

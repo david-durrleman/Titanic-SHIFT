@@ -73,7 +73,9 @@
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CommandManager.cs" />
     <Compile Include="Commands\CreateCommand.cs" />
+    <Compile Include="Commands\DeleteCommand.cs" />
     <Compile Include="Commands\DisplayCommand.cs" />
+    <Compile Include="Commands\DuplicateCommand.cs" />
     <Compile Include="Commands\ExitCommand.cs" />
     <Compile Include="Commands\HelpCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
