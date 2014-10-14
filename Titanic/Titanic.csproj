@@ -70,6 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\ExecuteCommand.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CommandManager.cs" />
     <Compile Include="Commands\CreateCommand.cs" />
@@ -81,7 +82,7 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\InfoCommand.cs" />
     <Compile Include="Commands\TrainCommand.cs" />
-    <Compile Include="CsvReader.cs" />
+    <Compile Include="CsvUtil.cs" />
     <Compile Include="Data\Passenger.cs" />
     <Compile Include="Models\IModel.cs" />
     <Compile Include="Models\MeanProbabilityModel.cs" />

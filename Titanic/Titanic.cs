@@ -85,7 +85,7 @@ namespace Titanic
 
             while (true)
             {
-                var result = CommandManager.Execute(UI.GetCommandLine());
+                var result = CommandManager.Execute(UI.GetLine());
 
                 switch (result.Code)
                 {
