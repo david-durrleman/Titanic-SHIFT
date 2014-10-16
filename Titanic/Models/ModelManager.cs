@@ -21,7 +21,7 @@ namespace Titanic.Models
     {
         private static IDictionary<ModelType, Func<IModel>> ModelBuilders = new Dictionary<ModelType, Func<IModel>>();
         public static int NumModelTypes { get { return ModelBuilders.Count(); } }
-        
+
         private static List<ModelInstance> ModelInstances = new List<ModelInstance>();
         public static IEnumerable<int> ModelIds { get { return ModelInstances.Select((m, i) => new { Model = m, Id = i }).Where(x => x.Model != null).Select(x => x.Id).ToList(); } }
 
@@ -65,8 +65,7 @@ namespace Titanic.Models
         // with the given parameters. It then records it in the global ModelInstances variable.
         public static int AddModel(ModelType type, string[] paramValues)
         {
-            ModelInstances.Add(new ModelInstance(type, paramValues));
-            return ModelInstances.Count() - 1;
+            return AddModel(new ModelInstance(type, paramValues));
         }
 
         // This creates a ModelInstance container from the given modelinstance. It then records it in the global ModelInstances variable.
