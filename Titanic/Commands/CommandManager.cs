@@ -48,7 +48,11 @@ namespace Titanic.Commands
             AddCommand("info", new InfoCommand());
             AddCommand("exit", new ExitCommand());
             AddCommand("help", new HelpCommand());
+            AddCommand("delete", new DeleteCommand());
+            AddCommand("duplicate", new DuplicateCommand());
+
         }
+
 
         // This public method could be used (although it isn't at the moment) to dynamically add new commands,
         // say if we wanted to give the user the possiblity to define new commands at run-time)

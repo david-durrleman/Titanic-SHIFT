@@ -30,6 +30,7 @@ namespace Titanic.Models
         static ModelManager()
         {
             AddModelType(ModelType.MeanProbability, () => new MeanProbabilityModel());
+            // ADD OTHER MODELS HERE
         }
 
         // This public method could be used (although it isn't at the moment) to dynamically add new model types
@@ -65,6 +66,13 @@ namespace Titanic.Models
         public static int AddModel(ModelType type, string[] paramValues)
         {
             ModelInstances.Add(new ModelInstance(type, paramValues));
+            return ModelInstances.Count() - 1;
+        }
+
+        // This creates a ModelInstance container from the given modelinstance. It then records it in the global ModelInstances variable.
+        public static int AddModel(ModelInstance model)
+        {
+            ModelInstances.Add(model);
             return ModelInstances.Count() - 1;
         }
 
