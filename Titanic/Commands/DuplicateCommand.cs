@@ -13,7 +13,7 @@ namespace Titanic.Commands
 
         public override string Description
         {
-            get { return "Deletes given model"; }
+            get { return "Creates an untrained model from given model with same parameters"; }
         }
 
         public override string ArgSyntax
