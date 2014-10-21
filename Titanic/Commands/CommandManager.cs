@@ -13,6 +13,7 @@ namespace Titanic.Commands
     // their order.
     public static class CommandManager
     {
+        // Note here we use StringComparer.OrdinalIgnoreCase to make sure command names are case-insensitive
         private static IDictionary<string, ICommand> Commands = new Dictionary<string, ICommand>(StringComparer.OrdinalIgnoreCase);
         private static IList<string> CommandNames = new List<string>();
 
@@ -43,7 +44,11 @@ namespace Titanic.Commands
         static CommandManager()
         {
             AddCommand("create", new CreateCommand());
+            AddCommand("delete", new DeleteCommand());
+            AddCommand("duplicate", new DuplicateCommand());
             AddCommand("train", new TrainCommand());
+            AddCommand("calculate", new ExecuteCommand());
+            AddCommand("simulate", new ExecuteCommand(true));
             AddCommand("display", new DisplayCommand());
             AddCommand("info", new InfoCommand());
             AddCommand("exit", new ExitCommand());

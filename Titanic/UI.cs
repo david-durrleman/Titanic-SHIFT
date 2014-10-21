@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Titanic.Parsing;
 
 namespace Titanic
 {
@@ -60,6 +61,11 @@ namespace Titanic
             GetKey();
         }
 
+        public static void Wait()
+        {
+            WaitKey();
+        }
+
         public static bool GetYesOrNo(string message)
         {
             PrintMessage(String.Format("{0} [y/n]", message));
@@ -78,7 +84,7 @@ namespace Titanic
             }
         }
 
-        public static string GetCommandLine()
+        public static string GetLine()
         {
             Console.Write(">");
             return Console.ReadLine();
@@ -92,7 +98,7 @@ namespace Titanic
         public static void WaitMessage(string message)
         {
             PrintMessage(message);
-            WaitKey();
+            Wait();
             UI.Clear();
         }
     }

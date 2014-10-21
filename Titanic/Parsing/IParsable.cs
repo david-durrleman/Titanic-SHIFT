@@ -90,10 +90,10 @@ namespace Titanic.Parsing
         ParsableProperty[] Props { get; }
     }
 
-    // Here we define an extension method for IParsable that allow to configure any class implementing
-    // IParsable with an array containing the right number of strings. An extension method is a way to
-    // extend any class satisfying a given interface with helper methods which use the functionality
-    // defined in an interface.
+    // Here we define extension methods for IParsable that allow to configure any class implementing
+    // IParsable with the right number of strings. An extension method is a way to extend any class 
+    // satisfying a given interface with helper methods which use the functionality defined in an 
+    // interface.
 
     // As discussed in Commands.cs, there are other ways to do this such as using an abstract base class.
     // It wouldn't work in this case, because we have very different classes implementing IParsable
@@ -116,7 +116,31 @@ namespace Titanic.Parsing
             @this.CheckParamLength(values.Length);
 
             for (int i = 0; i < values.Length; i++)
-                @this.Props[i].SetValue(@this, @this.Props[i].Parser.Parse(values[i]));
+            {
+                var prop = @this.Props[i];
+                prop.SetValue(@this, prop.Parser.Parse(values[i]));
+            }
+
+            return @this;
+        }
+
+        private static Type GetBaseType(Type topType)
+        {
+            var type = topType;
+            while (Nullable.GetUnderlyingType(type) != null)
+                type = Nullable.GetUnderlyingType(type);
+
+            return type;
+        }
+
+        public static T WithUserProps<T>(this T @this) where T : IParsable
+        {
+            for (int i = 0; i < @this.Props.Length; i++)
+            {
+                var prop = @this.Props[i];
+                UI.PrintMessage(String.Format("Please provide a {0} ({1})", prop.Name, GetBaseType(prop.Parser.OutType).Name));
+                prop.SetValue(@this, prop.Parser.Parse(UI.GetLine()));
+            }
 
             return @this;
         }

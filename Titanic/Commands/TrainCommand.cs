@@ -30,7 +30,7 @@ namespace Titanic.Commands
             var path = cmdArgs[1];
 
             var model = ModelManager.GetModel(modelId); // Here again we'll get a TitanicException if the model doesn't exist
-            var allFields = new CsvReader().ReadFile(path); // And here as well if we can't access or parse the file
+            var allFields = new CsvUtil().ReadFile(path); // And here as well if we can't access or parse the file
 
             // The below line may be a bit complex. Here is what it does.
             // For each set of fields read in the file, we create a new passenger for training from these fields.

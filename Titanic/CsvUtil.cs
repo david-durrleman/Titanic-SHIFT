@@ -1,21 +1,23 @@
 ﻿using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Titanic
 {
-    // This is our csv-file reading class. We configure the file format upon initialization.
-    // It has a single method which reads a file and returns an enumerable of arrays, which
+    // This is our csv-file utility class. We configure the file format upon initialization.
+    // It has a method which reads a file and returns an enumerable of arrays, which
     // represent the lines in the file broken down into their separate fields.
+    // It also provides a converse method which writes an array of field to a file
     
     // The enumeration is eager, as in it reads all the lines before returning them.
     // We could have also implemented a lazy enumerable, which allows for larger files,
     // without going out of memory, but it isn't really useful here and a bit more difficult
     // to implement when also catching exceptions, which we do.
-    public class CsvReader
+    public class CsvUtil
     {
         public string Delimiters { get; set; }
         public bool HasQuotes { get; set; }
@@ -23,7 +25,7 @@ namespace Titanic
 
         // The default configuration values represent the generally accepted "standard" for CSV
         // files, which helpfully happens to be the one we're dealing with in this project.
-        public CsvReader()
+        public CsvUtil()
         {
             Delimiters = ",";
             HasQuotes = true;
@@ -63,6 +65,46 @@ namespace Titanic
             }
 
             return result;
+        }
+
+        private void WriteLine(StreamWriter writer, object[] fields)
+        {
+            var strings = fields.Select(f => f.ToString());
+            var quoted = HasQuotes ? strings.Select(f => String.Format(@"""{0}""", f.Replace(@"""", @""""""))) : strings;
+            writer.WriteLine(String.Join(",", quoted));
+        }
+
+        public int WriteFile(string path, string[] headers, IEnumerable<object[]> fields)
+        {
+            int numLines = 0;
+            
+            try
+            {
+                using (var writer = new StreamWriter(path))
+                {
+                    var actualFields = fields;
+                    if (HasHeaders && headers != null)
+                        actualFields = new object[][] { headers }.Concat(fields);
+
+                    foreach (var f in actualFields)
+                    {
+                        WriteLine(writer, f);
+                        numLines++;
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                // Same issue here with the catch-all exception...
+                throw new TitanicException(String.Format("Failed to write to {0}: {1}", path, exception.Message));
+            }
+
+            return numLines;
+        }
+
+        public int WriteFile(string path, IEnumerable<object[]> fields)
+        {
+            return WriteFile(path, null, fields);
         }
     }
 }
