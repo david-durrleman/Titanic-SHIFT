@@ -144,27 +144,5 @@ namespace Titanic.Parsing
 
             return @this;
         }
-
-        public static T WithConsoleInput<T>(this T @this) where T : IParsable
-        {
-            UI.PrintMessage(String.Format("Manual definition of object {0}:", @this));
-            foreach (ParsableProperty p in @this.Props)
-            {
-                UI.PrintMessage(String.Format("Enter a value for {0}. Expected format : {1}", p.Name, (p.Parser.OutType).Name));
-                while (true)
-                {
-                    try
-                    {
-                        p.SetValue(@this, p.Parser.Parse(UI.GetCommandLine()));
-                        break;
-                    }
-                    catch (TitanicException e)
-                    {
-                        UI.PrintError(e.Message);
-                    }
-                }
-            }
-            return @this;
-        }
     }
 }

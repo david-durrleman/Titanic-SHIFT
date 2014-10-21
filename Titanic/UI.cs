@@ -86,8 +86,13 @@ namespace Titanic
 
         public static string GetLine()
         {
-            Console.Write(">");
-            return Console.ReadLine();
+            while(true)
+            {
+                Console.Write(">");
+                var input = Console.ReadLine();
+                if (input.Length != 0)
+                    return input;
+            }
         }
 
         public static void Clear()

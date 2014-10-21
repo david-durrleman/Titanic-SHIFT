@@ -53,10 +53,6 @@ namespace Titanic.Commands
             AddCommand("info", new InfoCommand());
             AddCommand("exit", new ExitCommand());
             AddCommand("help", new HelpCommand());
-            AddCommand("delete", new DeleteCommand());
-            AddCommand("duplicate", new DuplicateCommand());
-            AddCommand("simulate", new SimulateCalculateCommand(true));
-            AddCommand("calculate", new SimulateCalculateCommand(false));
         }
 
 
