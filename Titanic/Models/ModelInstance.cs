@@ -76,6 +76,7 @@ namespace Titanic.Models
         // IParsable
         public ModelInstance(ModelType type, string[] paramValues)
         {
+            Type = type;
             Model = ModelManager.CreateModel(type).WithParsableProps(paramValues);
         }
 

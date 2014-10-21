@@ -14,7 +14,7 @@ namespace Titanic.Data
     // PassengerClass), and also allow for type checking the data (if I were to write Sex.Alien,
     // the code wouldn't compile).
     public enum PassengerClass { FirstClass = 1, SecondClass = 2, ThirdClass = 3 };
-    public enum Sex { Male, Female };
+    public enum Sex { male, female };
     public enum Port { C, S, Q };
 
     // The main data class represents a Titanic passenger. It mostly contains scalar data in the
@@ -96,7 +96,7 @@ namespace Titanic.Data
             // We have to do some array gymnastics to put the Survival property in the right place in the parsable
             // properties list
             var propsList = Props.ToList();
-            propsList.Insert(1, ParsableProperty.Create<TrainingPassenger, bool>(x => x.Survives, new BoolParser()));
+            propsList.Insert(1, ParsableProperty.Create<TrainingPassenger, bool>(x => x.Survives, new BoolParserFromInt()));
             Props = propsList.ToArray();
         }
     }

@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 namespace Titanic.Models
 {
     // Available model types should be named here, and added to the mapping in the ModelManager() constructor below
-    public enum ModelType { MeanProbability };
+    public enum ModelType
+    {
+        MeanProbability,
+        Neighbors
+    };
 
     // This class keeps track of all the available models in the program. It is static because it is intended to be
     // global at the program level.
@@ -30,6 +34,7 @@ namespace Titanic.Models
         static ModelManager()
         {
             AddModelType(ModelType.MeanProbability, () => new MeanProbabilityModel());
+            AddModelType(ModelType.Neighbors, () => new NeighborsModel());
             // ADD OTHER MODELS HERE
         }
 
@@ -41,7 +46,7 @@ namespace Titanic.Models
         }
 
         // This is used to create an unconfigured model of the given type, using the builder dictionary
-        public static IModel CreateModel(ModelType type)
+        public  static IModel CreateModel(ModelType type)
         {
             if (!ModelBuilders.ContainsKey(type))
                 throw new TitanicException(String.Format("Don't know how to build a model of type {0}", type));

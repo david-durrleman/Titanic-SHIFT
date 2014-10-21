@@ -88,6 +88,7 @@
     <Compile Include="Models\MeanProbabilityModel.cs" />
     <Compile Include="Models\ModelInstance.cs" />
     <Compile Include="Models\ModelManager.cs" />
+    <Compile Include="Models\NeighborsModel.cs" />
     <Compile Include="Parsing\IParsable.cs" />
     <Compile Include="Parsing\Parser.cs" />
     <Compile Include="Titanic.cs" />

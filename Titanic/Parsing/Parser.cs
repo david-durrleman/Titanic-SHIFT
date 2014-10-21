@@ -94,10 +94,18 @@ namespace Titanic.Parsing
 
     // This is a bad idea in general because this parser is now unable to parse e.g. "True"
     // as a literal. But it works for our usecase.
-    public class BoolParser : Parser<bool>
+    public class BoolParserFromInt : Parser<bool>
+    {
+        public BoolParserFromInt()
+            : base((string input, out bool value) => { int intValue; var result = Int32.TryParse(input, out intValue); value = Convert.ToBoolean(intValue); return result; })
+        {
+        }
+    }
+
+    public class BoolParser :  Parser<bool>
     {
         public BoolParser()
-            : base((string input, out bool value) => { int intValue; var result = Int32.TryParse(input, out intValue); value = Convert.ToBoolean(intValue); return result; })
+            :base (Boolean.TryParse)
         {
         }
     }
