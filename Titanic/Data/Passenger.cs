@@ -59,7 +59,7 @@ namespace Titanic.Data
                 ParsableProperty.Create<Passenger, int>(x => x.Id, new IntParser()),
                 ParsableProperty.Create<Passenger, PassengerClass>(x => x.Class, new EnumParser<PassengerClass>()),
                 ParsableProperty.Create<Passenger, string>(x => x.Name, new StringParser()),
-                ParsableProperty.Create<Passenger, Sex?>(x => x.Sex, new NullableParser<Sex>(new EnumParser<Sex>())),
+                ParsableProperty.Create<Passenger, Sex>(x => x.Sex, new NullableParser<Sex>(new EnumParser<Sex>())),
                 ParsableProperty.Create<Passenger, uint?>(x => x.Age, new NullableParser<uint>(new UIntParser())),
                 ParsableProperty.Create<Passenger, uint>(x => x.NumSiblingsOrSpouses, new UIntParser()),
                 ParsableProperty.Create<Passenger, uint>(x => x.NumParentsOrChildren, new UIntParser()),
@@ -73,7 +73,7 @@ namespace Titanic.Data
         public int Id { get; set; }
         public string Name { get; set; }
         public PassengerClass Class { get; set; }
-        public Sex? Sex { get; set; }
+        public Sex Sex { get; set; }
         public uint NumSiblingsOrSpouses { get; set; }
         public uint NumParentsOrChildren { get; set; }
         public string TicketId { get; set; }
@@ -81,6 +81,9 @@ namespace Titanic.Data
         public double? Fare { get; set; }
         public string Cabin { get; set; }
         public Port? DeparturePort { get; set; }
+
+        public string FamilyName { get { return Name.Split(',')[0]; } }
+        public char? Deck { get { return String.IsNullOrEmpty(Cabin) ? null : (char?)Cabin[0]; } }
     }
 
     // As described above, this child class represents a passenger with the extra information of whether

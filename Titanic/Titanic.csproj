@@ -63,6 +63,7 @@
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -91,6 +92,7 @@
     <Compile Include="Models\NeighborsModel.cs" />
     <Compile Include="Parsing\IParsable.cs" />
     <Compile Include="Parsing\Parser.cs" />
+    <Compile Include="PropertyUtil.cs" />
     <Compile Include="Titanic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TitanicException.cs" />

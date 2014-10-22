@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -127,6 +128,49 @@ namespace Titanic.Parsing
     {
         public NullableParser(Parser<TValue> baseParser)
             : base((string input, out Nullable<TValue> value) => { TValue baseValue; value = baseParser.TryParseFunc(input, out baseValue) ? (TValue?)baseValue : null; return true; })
+        {
+        }
+    }
+
+    // Parsing a property for a class given its name is easy using Reflection.
+    // An exception is raised if the property doesn't exist, in which case we
+    // fail gracefully
+    public class PropertyInfoParser<TClass> : Parser<PropertyInfo>
+    {
+        public PropertyInfoParser()
+            : base((string input, out PropertyInfo value) => { try { value = typeof(TClass).GetProperty(input); return true; } catch { value = null; return false; } })
+        {
+        }
+    }
+
+    // This parses an array of values of the same types given a parser for the
+    // underlying values, and a separator char.
+    // For example "1,2,3" could be parsed as new int[] { 1, 2, 3 }
+    public class ArrayParser<TElement> : Parser<TElement[]>
+    {
+        public ArrayParser(Parser<TElement> baseParser, char separator)
+            : base((string input, out TElement[] value) =>
+        {
+            var splits = input.Split(separator);
+            value = new TElement[splits.Length];
+
+            int i = 0;
+            foreach (var split in splits)
+            {
+                TElement element;
+                if (!baseParser.TryParseFunc(split, out element))
+                    return false;
+
+                value[i++] = element;
+            }
+
+            return true;
+        })
+        {
+        }
+
+        public ArrayParser(Parser<TElement> baseParser)
+            : this(baseParser, ',')
         {
         }
     }
