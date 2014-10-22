@@ -45,6 +45,9 @@ namespace Titanic.Data
     // into the type system whether or not we have information about a passenger's survival.
     // This way, if we were to try to feed a basic Passenger to a Model for training, the
     // compiler would alert us that this is an error (instead of problems showing up at runtime)
+    // More importantly, this also ensures models are not biased by known survival values
+    // when estimating survival - this latter error would be worse because it wouldn't even fail
+    // at runtime, it would just return invalid results.
     public class Passenger : IParsable
     {
         // The Props array is required to implement IParsable.
