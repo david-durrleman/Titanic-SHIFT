@@ -138,7 +138,7 @@ namespace Titanic.Parsing
     public class PropertyInfoParser<TClass> : Parser<PropertyInfo>
     {
         public PropertyInfoParser()
-            : base((string input, out PropertyInfo value) => { try { value = typeof(TClass).GetProperty(input); return true; } catch { value = null; return false; } })
+            : base((string input, out PropertyInfo value) => { try { value = typeof(TClass).GetProperty(input); return value != null; } catch { value = null; return false; } })
         {
         }
     }
